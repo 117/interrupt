@@ -31,13 +31,8 @@ $ deno add @117/interrupt
 ```ts
 import { addTask } from "@117/interrupt";
 
-const closeDatabaseConnection = async () =>
-  console.log("closing database connection");
-
-const saveUnsavedData = async () => console.log("saving unsaved data");
-
-addTask(closeDatabaseConnection, { errorFn: (error) => console.error(error) });
-addTask(saveUnsavedData);
+addTask(() => console.log("goodbye"));
+addTask(() => console.log("goodbye, for real this time"));
 
 console.log("app is running, press ctrl+c to exit");
 ```
