@@ -1,7 +1,7 @@
 {
   "name": "@117/interrupt",
   "description": "Task queue for interrupt handling.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "exports": "./mod.ts",
   "imports": {
     "@/": "./",
