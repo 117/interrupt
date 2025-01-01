@@ -29,10 +29,10 @@ $ deno add @117/interrupt
 ## Example
 
 ```ts
-import { addTask } from "@117/interrupt";
+import { onInterrupt } from "@117/interrupt";
 
-addTask(() => console.log("goodbye"));
-addTask(() => console.log("goodbye, for real this time"));
+onInterrupt(() => console.log("goodbye"));
+onInterrupt(() => console.log("goodbye, for real this time"));
 
 console.log("app is running, press ctrl+c to exit");
 ```

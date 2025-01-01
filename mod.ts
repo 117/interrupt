@@ -1,1 +1,1 @@
-export { addTask, taskQueue } from "@/src/addTask.ts";
+export { onInterrupt, taskQueue } from "@/src/onInterrupt.ts";

@@ -25,7 +25,7 @@ const taskQueue: Task[] = [];
  * Represents options for a task.
  * @interface
  */
-type AddTaskOpts = {
+type onInterruptOpts = {
   /**
    * Optional error handler for the task.
    * @param {unknown} error - The error thrown by the task.
@@ -39,8 +39,10 @@ type AddTaskOpts = {
  * @param {() => Promise<void>} task - The asynchronous task function to add.
  * @param {TaskOptions} [options] - Optional settings for the task.
  */
-const addTask = (task: () => Promise<void>, options?: AddTaskOpts): number =>
-  taskQueue.push({ task, ...options });
+const onInterrupt = (
+  task: () => Promise<void>,
+  options?: onInterruptOpts,
+): number => taskQueue.push({ task, ...options });
 
 /**
  * Processes all tasks in the task queue sequentially.
@@ -74,4 +76,4 @@ const onBeforeInterrupt = async (): Promise<void> =>
 Deno.addSignalListener("SIGINT", onBeforeInterrupt);
 Deno.addSignalListener("SIGTERM", onBeforeInterrupt);
 
-export { addTask, taskQueue };
+export { onInterrupt, taskQueue };
