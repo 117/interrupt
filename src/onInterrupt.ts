@@ -7,15 +7,15 @@
 type Task = {
   /**
    * The asynchronous task function to execute.
-   * @returns {Promise<void>}
+   * @returns {Promise<unknown>}
    */
-  task: () => Promise<void>;
+  task: () => Promise<unknown>;
 
   /**
    * Optional error handler for the task.
    * @param {*} error - The error thrown by the task.
    */
-  errorFn?: (error: unknown) => Promise<void>;
+  errorFn?: (error: unknown) => Promise<unknown>;
 };
 
 /** The queue of tasks to be executed before interruption. */
@@ -30,17 +30,17 @@ type onInterruptOpts = {
    * Optional error handler for the task.
    * @param {unknown} error - The error thrown by the task.
    */
-  errorFn?: (error: unknown) => Promise<void>;
+  errorFn?: (error: unknown) => Promise<unknown>;
 };
 
 /**
  * Adds a task to the task queue to be processed before interruption.
  *
- * @param {() => Promise<void>} task - The asynchronous task function to add.
+ * @param {() => Promise<unknown>} task - The asynchronous task function to add.
  * @param {TaskOptions} [options] - Optional settings for the task.
  */
 const onInterrupt = (
-  task: () => Promise<void>,
+  task: () => Promise<unknown>,
   options?: onInterruptOpts,
 ): number => taskQueue.push({ task, ...options });
 
@@ -50,7 +50,7 @@ const onInterrupt = (
  * If no error handler is provided, the error is thrown.
  *
  * @async
- * @returns {Promise<void>}
+ * @returns {Promise<unknown>}
  */
 const processTasks = async (): Promise<void> => {
   for (const { task, errorFn } of taskQueue) {
