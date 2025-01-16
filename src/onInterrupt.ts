@@ -1,5 +1,8 @@
 /** @module interrupt */
 
+/** Represents whether the task queue is being processed. */
+let isExecuting = false;
+
 /**
  * Represents a task to be executed with an optional error handler.
  * @interface
@@ -69,8 +72,15 @@ const processTasks = async (): Promise<void> => {
  * @async
  * @returns {Promise<void>}
  */
-const onBeforeInterrupt = async (): Promise<void> =>
-  await processTasks().then(() => Deno.exit());
+const onBeforeInterrupt = async (): Promise<void> => {
+  if (isExecuting) {
+    return;
+  }
+
+  isExecuting = true;
+  await processTasks();
+  Deno.exit();
+};
 
 /** Registers the interrupt handlers for SIGINT and SIGTERM signals. */
 Deno.addSignalListener("SIGINT", onBeforeInterrupt);
